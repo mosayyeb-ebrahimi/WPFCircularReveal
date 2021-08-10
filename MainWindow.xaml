@@ -1,0 +1,61 @@
+﻿<Window x:Class="CircularReveal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CircularReveal"
+        mc:Ignorable="d"
+        x:Name="mWindow"
+        WindowStyle="None"
+        Title="Circular Reveal" Height="680" Width="400" FontFamily="Lato">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CaptionHeight="54"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+
+        <Grid x:Name="mGrid" Background="{DynamicResource MainColorBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="54"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Background="{DynamicResource MainColorBrush}">
+                <Grid.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="DarkSlateGray" Opacity=".5" BlurRadius="9" />
+                </Grid.Effect>
+                <Button x:Name="mButton" Click="mButton_Click" Margin="12 0" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" Background="{DynamicResource MainColorBrush}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    <Path x:Name="mPath" Fill="Gray" Data="{StaticResource SunGeometry}" Stretch="Uniform" Height="25" Width="25"/>
+                </Button>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12" FontWeight="DemiBold" FontSize="19" Foreground="{DynamicResource MainTextColorBrush}" Text="{Binding Title, ElementName=mWindow}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock FontSize="19" FontWeight="SemiBold" Foreground="{DynamicResource MainTextColorBrush}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Run Text="Current Theme : "/><Run x:Name="themeText" Text="Light"/>
+                </TextBlock>
+            </Grid>
+        </Grid>
+        
+        <Grid Visibility="Collapsed"  x:Name="RVGrid">
+            <Image x:Name="RVImage">
+                <Image.Clip>
+                    <EllipseGeometry/>
+                </Image.Clip>
+            </Image>
+        </Grid>
+        
+    </Grid>
+</Window>
